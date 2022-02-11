@@ -44,8 +44,29 @@ jobs:
         name: Run Playbook and Configure server
         command: |
           ansible-playbook -i inventory.txt main-remote.yml
+
+  smoke_testing:
+
+    docker:
+    - image: alpine:latest
+
+    steps:
+    - checkout
+    - run: apk add --update curl
+    - run:
+        name: smoke test
+       command: |
+         URL="https://blog.udacity.com/"
+         # Test if website exists
+         if curl -s --head ${URL} 
+         then
+           return 0
+         else
+           return 1
+         fi
+
 workflows:
   my_workflow:
     jobs:
       - myjob1
-      - configure_infrastructure
+      - smoke_testing
