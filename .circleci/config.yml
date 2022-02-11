@@ -1,5 +1,14 @@
 version: 2.1
 # Use a package of configuration called an orb.
+
+destroy_environment:
+
+    steps:
+    - run:
+        name: destroy/rollback
+        when: on_fail
+        command: |
+            aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
 orbs:
   # Choose either one of the orbs below
   # welcome: circleci/welcome-orb@0.4.1
@@ -13,6 +22,9 @@ jobs:
       steps:
         - checkout # check out the code in the project directory
         - run: echo "hello world" # run the `echo` command
+
+  
+          
 
   create_infrastructure: 
     docker:
@@ -64,9 +76,21 @@ jobs:
           else
             return 1
           fi
+  smoke_testing_fail:
+
+    docker:
+    - image: alpine:latest
+
+    steps:
+    - run:
+        name: failed smoke test
+        command:
+          return 1
+    - destroy_environment
 
 workflows:
   my_workflow:
     jobs:
       - myjob1
-      - smoke_testing
+      - create_infrastructure
+      - smoke_testing_fail
