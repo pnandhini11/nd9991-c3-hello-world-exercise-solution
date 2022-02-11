@@ -8,8 +8,8 @@ orbs:
 jobs:
   myjob1:  # Choose any name, such as `build`
       # The primary container, where your job's commands will run
-      docker: circleci/node:13.8.0
-        - image: 
+      docker: 
+        - image: circleci/node:13.8.0
       steps:
         - checkout # check out the code in the project directory
         - run: echo "hello world" # run the `echo` command
