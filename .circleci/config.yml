@@ -84,7 +84,7 @@ jobs:
     steps:
     - run:
         name: failed smoke test
-        command:
+        command: |
           return 1
     - destroy_environment
 
