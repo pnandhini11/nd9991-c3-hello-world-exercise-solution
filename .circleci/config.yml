@@ -111,6 +111,7 @@ jobs:
 
     docker:
       - image: amazon/aws-cli
+
     steps:
       - checkout
       - run: yum install -y tar gzip
@@ -119,7 +120,7 @@ jobs:
           command: |
             aws cloudformation \
             list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
-            --no-paginate --output text > ~/textfile.txt
+            --no-paginate --output text > textfile.txt
       - persist_to_workspace:
         root: .
         paths: 
