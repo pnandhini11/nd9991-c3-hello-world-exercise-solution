@@ -1,7 +1,9 @@
 version: 2.1
 # Use a package of configuration called an orb.
 
-destroy_environment:
+commands:
+
+  destroy_environment:
 
     steps:
     - run:
