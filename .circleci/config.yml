@@ -48,4 +48,4 @@ workflows:
   my_workflow:
     jobs:
       - myjob1
-      - configure_infrastructure
+      - create_infrastructure
