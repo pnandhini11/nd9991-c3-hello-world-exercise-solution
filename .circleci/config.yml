@@ -120,7 +120,7 @@ jobs:
           command: |
             aws cloudformation \
             list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
-            --no-paginate --output text > ./textfile.txt
+            --no-paginate --output text > ~/textfile.txt
 
 workflows:
   my_workflow:
